@@ -10,6 +10,25 @@ namespace RoomRent
 	{
 		static void Main(string[] args)
 		{
+
+            XMLFileOperator fileOperator = new XMLFileOperator("file.xml");
+            fileOperator.CreateXmlFile();
+            Flat flat = new Flat();
+            flat.Id = 1;
+            flat.Price = 10;
+            flat.RoomCount = 3;
+
+            Address address = new Address();
+            address.Region = "serebro";
+            address.Street = "dfghj";
+            address.HouseNumb = "8";
+            address.FlatNumb = 5;
+
+            flat.FlatAddress = address;
+
+            fileOperator.FillFlatIntoXml(flat);
+            fileOperator.FillFlatIntoXml(flat);
+
 		}
 	}
 }
