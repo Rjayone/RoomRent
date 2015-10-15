@@ -18,7 +18,7 @@ namespace RoomRent
 				selection = menu.printMainMenu();
 				selection = Console.ReadLine();
 				if (selection == "1")
-					menu.presentAllFlatsPage();
+					//menu.pres();
 				else if (selection == "2")
 					menu.presentAddFlatPage();
 				Console.Clear();

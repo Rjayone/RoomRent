@@ -26,8 +26,39 @@ namespace RoomRent
         }
 
         public List<Flat> getAllFlatsFromXml() {
-            XmlTextReader reader = new XmlTextReader("file.xml");
-			return null;
+            List<Flat> list = new List<Flat>();
+            XElement root = XElement.Load("file.xml");
+            IEnumerable<XElement> flats =
+            from el in root.Elements("flat")
+            select el;
+            foreach (XElement el in flats)
+            {
+                Flat flat = new Flat();
+                flat.Id = (long)el.Attribute("id");
+                flat.RoomCount = (int)el.Element("roomCount");
+                flat.Price = (int)el.Element("price");
+          
+                Address address = new Address();
+                address.Region = el.Element("address").Element("region").Value;
+                address.Street = el.Element("address").Element("street").Value;
+                address.HouseNumb = el.Element("address").Element("houseNo").Value;
+                address.FlatNumb = (int)el.Element("address").Element("flatNo");
+
+                flat.FlatAddress = address;
+                list.Add(flat);
+                
+            }
+            return list;
+        
+        }
+
+        public List<String> getAllRegions() {
+            List<Flat> flats = getAllFlatsFromXml();
+            List<String> regions = new List<String>();
+            foreach (Flat el in flats) {
+                regions.Add(el.FlatAddress.Region);
+            }
+            return regions;
         }
 
         public void FillFlatIntoXml(Flat flat)

@@ -63,6 +63,11 @@ namespace RoomRent.MenuImplementation
 			Console.WriteLine("1. Save to file");
 			Console.WriteLine("2. Return to menu");
 			string selection = Console.ReadLine();
+
+			if (selection == "1")
+				saveToFile(flat);
+			else if (selection == "2")
+				return;
 		}
 
 		//Описание:
