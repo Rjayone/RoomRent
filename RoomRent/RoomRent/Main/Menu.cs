@@ -78,7 +78,7 @@ namespace RoomRent.MenuImplementation
 			//Вывести в консоль доступные регионы
 			//Сделать считывание с клавы и проверку, есть ли такой регион в списке
 			//После возвращаем выбранный регион в presentFlatsForRegion(region);
-			//regions = dataSource.getRegions();
+			regions = dataSource.getAllRegions();
 			string selectedRegion = "";
 			return selectedRegion;
 		}
