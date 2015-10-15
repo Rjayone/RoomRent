@@ -12,6 +12,11 @@ namespace RoomRent
         public string Street { get; set; }
         public string HouseNumb { get; set; }
         public int FlatNumb { get; set; }
-        
-    }
+
+
+		override public string ToString()
+		{
+			return Region + ", " + Street + ", " + HouseNumb;
+		}
+	}
 }

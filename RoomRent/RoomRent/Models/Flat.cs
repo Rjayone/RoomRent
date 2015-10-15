@@ -15,5 +15,10 @@ namespace RoomRent
 
         public long Id { get; set; }
 
+
+		override public String ToString()
+		{
+			return FlatAddress + "\n  Rooms: " + RoomCount + "\n  Price: " + Price;
+		}
     }
 }

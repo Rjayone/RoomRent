@@ -41,11 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Flat.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Main\Menu.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Flat.cs" />
+    <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLFileOperator.cs" />
+    <Compile Include="Parser\XMLFileOperator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Common\App.config" />

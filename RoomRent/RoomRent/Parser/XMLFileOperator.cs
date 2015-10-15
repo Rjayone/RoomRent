@@ -27,6 +27,7 @@ namespace RoomRent
 
         public List<Flat> getAllFlatsFromXml() {
             XmlTextReader reader = new XmlTextReader("file.xml");
+			return null;
         }
 
         public void FillFlatIntoXml(Flat flat)
