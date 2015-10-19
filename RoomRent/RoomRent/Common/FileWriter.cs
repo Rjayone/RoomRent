@@ -8,7 +8,7 @@ namespace RoomRent.Common
 {
 	class FileWriter
 	{
-		static bool saveToFile(object obj)
+		public static bool saveToFile(object obj)
 		{ 
 			//object можно заменить на конкретный тип
 			//Метод должен производить запись в файл принятого объекта

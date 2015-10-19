@@ -8,7 +8,11 @@ namespace RoomRent
 {
     public class Flat
     {
-        
+		public Flat()
+		{
+			FlatAddress = new Address();
+		}
+
         public Address FlatAddress { get; set; }
         public int RoomCount { get; set;  }
         public int Price { get; set; }
