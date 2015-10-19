@@ -20,9 +20,9 @@ namespace RoomRent.MenuImplementation
 				dataSource = new XMLFileOperator("file.xml");
 
 			Console.WriteLine("ULTIMATE FLAT FINDER 5000!");
-			Console.WriteLine("1. All flats");
-			Console.WriteLine("2. Add your flat");
-			Console.WriteLine("0. Exit");
+			Console.WriteLine("1.  All flats");
+			Console.WriteLine("2.  Add your flat");
+			Console.WriteLine("0.  Exit");
 			return Console.ReadLine();
 		}
 
@@ -31,6 +31,7 @@ namespace RoomRent.MenuImplementation
 		//Если ничего не найдено то возвращаемся в освновное меню, иначе пользователь может выбрать интересующую квартиру
 		public void presentFlatsForRegion(string region)
 		{
+			Console.Clear();
 			flats = dataSource.getAllFlatsFromXml();
 			int i = 0;
 			Console.WriteLine("-----------------------------------------------------------");
@@ -53,6 +54,7 @@ namespace RoomRent.MenuImplementation
 			string index = Console.ReadLine();
 
 			Flat selectedFlat = flats[Int16.Parse(index)];
+			printSelectedFlat(selectedFlat);
 		}
 
 
@@ -74,24 +76,36 @@ namespace RoomRent.MenuImplementation
 		//Метод выводит доступные регионы на основе считанного хмл
 		public string showRegions()
 		{
+			Console.Clear();
+			Console.WriteLine("Available regions:");
 			//Дописать получение всех регинов с дата сорса
 			//Вывести в консоль доступные регионы
 			//Сделать считывание с клавы и проверку, есть ли такой регион в списке
 			//После возвращаем выбранный регион в presentFlatsForRegion(region);
 			regions = dataSource.getAllRegions();
-			string selectedRegion = "";
-			return selectedRegion;
+			int iterator = 1;
+			foreach (string region in regions)
+			{
+				Console.WriteLine(iterator + ". " + region);
+				iterator++;
+			}
+
+			Console.WriteLine("Please, enter the number of region");
+			string selectedRegionIndex = Console.ReadLine();
+			short regionIndex = 0;
+			if (Int16.TryParse(selectedRegionIndex, out regionIndex))
+			{
+				string regionTitle = regions[regionIndex];
+				presentFlatsForRegion(regionTitle);
+			}
+			else
+			{
+				Console.WriteLine("Something wrong");
+				return "0";
+			}
+			return "0";
 		}
 
-		public void saveToFile(Flat flat)
-		{
-			string fileName = "";
-			Console.Clear();
-			Console.WriteLine("Please, print name of file to save(without extension)");
-			fileName = Console.ReadLine();
-
-			//Ниже должна быть запись в файл квартиры
-		}
 
 		public void presentAddFlatPage()
 		{

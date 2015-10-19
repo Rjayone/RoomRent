@@ -18,7 +18,7 @@ namespace RoomRent
 
 		override public String ToString()
 		{
-			return FlatAddress + "\n  Rooms: " + RoomCount + "\n  Price: " + Price;
+			return FlatAddress + "\n   Rooms: " + RoomCount + "\n   Price: " + Price;
 		}
     }
 }

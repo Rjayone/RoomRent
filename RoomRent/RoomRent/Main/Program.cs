@@ -16,7 +16,6 @@ namespace RoomRent
 			while (selection != "0")
 			{
 				selection = menu.printMainMenu();
-				selection = Console.ReadLine();
 				if (selection == "1")
 					menu.showRegions();
 				else if (selection == "2")
