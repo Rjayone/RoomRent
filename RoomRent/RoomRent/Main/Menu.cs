@@ -63,18 +63,16 @@ namespace RoomRent.MenuImplementation
 
 			List<Flat> filteredFlats = filter.searchWithRegionInArray(region, flats);
 			presentFlatsFromArray(filteredFlats);
-		}
-
-
-		public void printSelectedFlat(List<Flat> flats)
-		{
-			if (flats.Count == 0)
-				return;
 
 			Console.WriteLine("Please, select interesting postion");
 			string index = Console.ReadLine();
 			Flat flat = flats[Int16.Parse(index)];
+			printSelectedFlat(flat);
+		}
 
+
+		public void printSelectedFlat(Flat flat)
+		{
 			Console.Clear();
 			Console.WriteLine(flat);
 			Console.WriteLine("1. Save to file");
@@ -93,10 +91,7 @@ namespace RoomRent.MenuImplementation
 		{
 			Console.Clear();
 			Console.WriteLine("Available regions:");
-			//Дописать получение всех регинов с дата сорса
-			//Вывести в консоль доступные регионы
-			//Сделать считывание с клавы и проверку, есть ли такой регион в списке
-			//После возвращаем выбранный регион в presentFlatsForRegion(region);
+
 			regions = dataSource.getAllRegions();
 			int iterator = 1;
 			foreach (string region in regions)
@@ -115,7 +110,7 @@ namespace RoomRent.MenuImplementation
 			}
 			else
 			{
-				Console.WriteLine("Something wrong");
+				Console.WriteLine("Incorrect index");
 				return "0";
 			}
 			return "0";
@@ -146,6 +141,11 @@ namespace RoomRent.MenuImplementation
 				List<Flat> filteredFlats = filter.searchWithRoomCountInArray(count, flats);
 				Console.Clear();
 				presentFlatsFromArray(filteredFlats);
+
+				Console.WriteLine("Please, select interesting postion");
+				string index = Console.ReadLine();
+				Flat flat = flats[Int16.Parse(index)];
+				printSelectedFlat(flat);
 			} 
 			else if( selection == "2")
 			{
@@ -156,6 +156,15 @@ namespace RoomRent.MenuImplementation
 				List<Flat> filteredFlats = filter.searchWithPriceInArray(price, flats);
 				Console.Clear();
 				presentFlatsFromArray(filteredFlats);
+
+				Console.WriteLine("Please, select interesting postion");
+				string index = Console.ReadLine();
+				Flat flat = flats[Int16.Parse(index)];
+				printSelectedFlat(flat);
+			}
+			else
+			{
+				Console.WriteLine("Incorrect index");
 			}
 		}
 	}
