@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\FileWriter.cs" />
+    <Compile Include="Common\RoomFilter.cs" />
     <Compile Include="Main\Menu.cs" />
+    <Compile Include="Main\RoomsManager.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Flat.cs" />
     <Compile Include="Main\Program.cs" />

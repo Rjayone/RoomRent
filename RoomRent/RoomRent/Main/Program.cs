@@ -20,6 +20,8 @@ namespace RoomRent
 					menu.showRegions();
 				else if (selection == "2")
 					menu.presentAddFlatPage();
+				else if (selection == "3")
+					menu.presentFilters();
 				Console.Clear();
 			}
 

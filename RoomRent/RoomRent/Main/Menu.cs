@@ -16,13 +16,17 @@ namespace RoomRent.MenuImplementation
 		private List<string> regions;
 		private RoomFilter filter;
 
+		public Menu()
+		{
+			dataSource = new XMLFileOperator("file.xml");
+			flats = dataSource.getAllFlatsFromXml();
+			filter = new RoomFilter();
+		}
+
 		//Описание:
 		//Метод выводит основное меню и считывает выбранный вариант
 		public string printMainMenu()
 		{
-			if (dataSource == null)
-				dataSource = new XMLFileOperator("file.xml");
-
 			Console.WriteLine("ULTIMATE FLAT FINDER 5000!");
 			Console.WriteLine("1.  All flats");
 			Console.WriteLine("2.  Add your flat");
@@ -33,12 +37,13 @@ namespace RoomRent.MenuImplementation
 
 		//Описание:
 		//Общий метод вывода списка квартир в консоль
-		void presentFlatsFromArray(List<Flat> flats)
+		bool presentFlatsFromArray(List<Flat> flats)
 		{
+			Console.Clear();
 			if (flats.Count == 0)
 			{
 				Console.WriteLine("Nothing founded");
-				return;
+				return false;
 			}
 
 			int i = 0;
@@ -49,25 +54,28 @@ namespace RoomRent.MenuImplementation
 				Console.WriteLine(i + 1 + ". " + flat);
 				Console.WriteLine("-----------------------------------------------------------");
 			}
+			return true;
 		}
 
 		//Описание:
 		//Метод  выводит в консоль квартиры по заданному региону
 		//Если ничего не найдено то возвращаемся в освновное меню, иначе пользователь может выбрать интересующую квартиру
-		public void presentFlatsForRegion(string region)
+		public void presentFlatsForRegionInArray(string region, List<Flat> flats)
 		{
-			Console.Clear();
-			flats = dataSource.getAllFlatsFromXml();
-			if (filter == null)
-				filter = new RoomFilter();
-
-			List<Flat> filteredFlats = filter.searchWithRegionInArray(region, flats);
-			presentFlatsFromArray(filteredFlats);
-
 			Console.WriteLine("Please, select interesting postion");
 			string index = Console.ReadLine();
-			Flat flat = flats[Int16.Parse(index)];
-			printSelectedFlat(flat);
+			try
+			{
+				Flat flat = flats[Int16.Parse(index) - 1];
+				printSelectedFlat(flat);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Incorrect index");
+				return;
+			}
+			
+			
 		}
 
 
@@ -105,8 +113,13 @@ namespace RoomRent.MenuImplementation
 			short regionIndex = 0;
 			if (Int16.TryParse(selectedRegionIndex, out regionIndex))
 			{
-				string regionTitle = regions[regionIndex];
-				presentFlatsForRegion(regionTitle);
+				string regionTitle = regions[regionIndex - 1];
+				List<Flat> filteredFlats = filter.searchWithRegionInArray(regionTitle, flats);
+
+				if (!presentFlatsFromArray(filteredFlats))
+					return "0";
+				
+				presentFlatsForRegionInArray(regionTitle, filteredFlats);
 			}
 			else
 			{
@@ -140,12 +153,21 @@ namespace RoomRent.MenuImplementation
 
 				List<Flat> filteredFlats = filter.searchWithRoomCountInArray(count, flats);
 				Console.Clear();
-				presentFlatsFromArray(filteredFlats);
+				if (!presentFlatsFromArray(filteredFlats))
+					return;
 
 				Console.WriteLine("Please, select interesting postion");
 				string index = Console.ReadLine();
-				Flat flat = flats[Int16.Parse(index)];
-				printSelectedFlat(flat);
+				try
+				{
+					Flat flat = flats[Int16.Parse(index) - 1];
+					printSelectedFlat(flat);
+				}
+				catch
+				{
+					Console.WriteLine("Incorrect index");
+				}
+				
 			} 
 			else if( selection == "2")
 			{
@@ -155,12 +177,20 @@ namespace RoomRent.MenuImplementation
 
 				List<Flat> filteredFlats = filter.searchWithPriceInArray(price, flats);
 				Console.Clear();
-				presentFlatsFromArray(filteredFlats);
+				if(!presentFlatsFromArray(filteredFlats))
+					return;
 
 				Console.WriteLine("Please, select interesting postion");
 				string index = Console.ReadLine();
-				Flat flat = flats[Int16.Parse(index)];
-				printSelectedFlat(flat);
+				try
+				{
+					Flat flat = flats[Int16.Parse(index)];
+					printSelectedFlat(flat);
+				}
+				catch
+				{
+					Console.WriteLine("Incorrect index");
+				}
 			}
 			else
 			{
