@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace RoomRent.Common
 {
@@ -16,8 +17,7 @@ namespace RoomRent.Common
 			Console.Clear();
 			Console.WriteLine("Please, print name of file to save(without extension)");
 			fileName = Console.ReadLine();
-
-			//Ниже должна быть запись в файл квартиры
+			File.WriteAllText(fileName + ".txt", obj.ToString(), Encoding.Unicode);
 			return true;
 		}
 	}

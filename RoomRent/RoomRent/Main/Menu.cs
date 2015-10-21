@@ -83,8 +83,10 @@ namespace RoomRent.MenuImplementation
 		{
 			Console.Clear();
 			Console.WriteLine(flat);
+			Console.WriteLine("Views count:" + dataSource.getViewsCountForFlatId(flat.Id));
+			dataSource.updateViewsCountForFlatId(flat.Id);
 			Console.WriteLine("1. Save to file");
-			Console.WriteLine("2. Return to menu");
+			Console.WriteLine("2. Return to menu\n");
 			string selection = Console.ReadLine();
 
 			if (selection == "1")

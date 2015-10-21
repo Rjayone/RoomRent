@@ -11,6 +11,7 @@ namespace RoomRent
     class XMLFileOperator{
 
         private string pathToXml;
+		private long lastId;
   
 
         public XMLFileOperator(string pathToXml) {
@@ -35,6 +36,7 @@ namespace RoomRent
             {
                 Flat flat = new Flat();
                 flat.Id = (long)el.Attribute("id");
+				lastId = flat.Id;
                 flat.RoomCount = (int)el.Element("roomCount");
                 flat.Price = (int)el.Element("price");
           
@@ -49,7 +51,6 @@ namespace RoomRent
                 
             }
             return list;
-        
         }
 
         public List<String> getAllRegions() {
@@ -63,6 +64,7 @@ namespace RoomRent
 
         public void FillFlatIntoXml(Flat flat)
         {
+			flat.Id = ++lastId;
             XmlDocument document = new XmlDocument();
             document.Load(pathToXml);
             XmlNode element = document.CreateElement("flat");
@@ -101,5 +103,47 @@ namespace RoomRent
             document.Save(pathToXml);
         }
 
+
+
+		public int getViewsCountForFlatId(long flatId)
+		{
+			List<Flat> list = new List<Flat>();
+			XElement root = XElement.Load("counter.xml");
+			IEnumerable<XElement> flats =
+			from el in root.Elements("flat")
+			select el;
+			foreach (XElement el in flats)
+			{
+				int id = (int)el.Attribute("id");
+				if(id == flatId) 
+				{
+					int count = Int16.Parse(el.Value);
+					return count;
+				}
+			}
+			return -1;
+		}
+
+		public void updateViewsCountForFlatId(long flatId)
+		{
+			XmlDocument document = new XmlDocument();
+            document.Load("counter.xml");
+
+			XElement root = XElement.Load("counter.xml");
+			IEnumerable<XElement> flats =
+			from el in root.Elements("flat")
+			select el;
+			foreach (XElement el in flats)
+			{
+				int id = (int)el.Attribute("id");
+				if (id == flatId)
+				{
+					int count = Int16.Parse(el.Value);
+					el.Value = "" + ++count;
+					root.Save("counter.xml");
+					return;
+				}
+			}
+		}
     }
 }
