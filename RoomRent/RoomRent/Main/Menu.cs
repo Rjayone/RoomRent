@@ -74,8 +74,7 @@ namespace RoomRent.MenuImplementation
 				Console.WriteLine("Incorrect index");
 				return;
 			}
-			
-			
+
 		}
 
 
@@ -88,7 +87,7 @@ namespace RoomRent.MenuImplementation
 			Console.WriteLine("1. Save to file");
 			Console.WriteLine("2. Return to menu\n");
 			string selection = Console.ReadLine();
-
+			
 			if (selection == "1")
 				FileWriter.saveToFile(flat);
 			else if (selection == "2")

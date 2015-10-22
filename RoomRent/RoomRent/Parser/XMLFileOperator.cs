@@ -56,9 +56,21 @@ namespace RoomRent
         public List<String> getAllRegions() {
             List<Flat> flats = getAllFlatsFromXml();
             List<String> regions = new List<String>();
+			bool contains = false;
             foreach (Flat el in flats) {
-                regions.Add(el.FlatAddress.Region);
+				contains = false;
+				for (int i = 0; i < regions.Count; i++)
+				{
+					if (regions[i] == el.FlatAddress.Region)
+					{
+						contains = true;
+						break;
+					}
+				}
+				if(!contains)
+					regions.Add(el.FlatAddress.Region);
             }
+
             return regions;
         }
 
