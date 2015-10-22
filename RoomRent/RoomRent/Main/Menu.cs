@@ -114,7 +114,13 @@ namespace RoomRent.MenuImplementation
 			short regionIndex = 0;
 			if (Int16.TryParse(selectedRegionIndex, out regionIndex))
 			{
+				if (regionIndex - 1 > regions.Count)
+				{
+					return "0";
+				}
+				
 				string regionTitle = regions[regionIndex - 1];
+				flats = dataSource.getAllFlatsFromXml();
 				List<Flat> filteredFlats = filter.searchWithRegionInArray(regionTitle, flats);
 
 				if (!presentFlatsFromArray(filteredFlats))

@@ -11,6 +11,7 @@ namespace RoomRent.Managers
 		public Flat addRoom()
 		{
 			Flat flat = new Flat();
+			XMLFileOperator dataSource = new XMLFileOperator("file.xml");
 
 			Console.Clear();
 			Console.WriteLine("Add your room or apartament");
@@ -27,8 +28,8 @@ namespace RoomRent.Managers
 			Console.Write("Enter a monthly privce ");
 			flat.Price = Int16.Parse(Console.ReadLine());
 
-			XMLFileOperator dataSource = new XMLFileOperator("file.xml");
 			dataSource.FillFlatIntoXml(flat);
+			dataSource.fillCounter();
 
 			return flat;
 		}

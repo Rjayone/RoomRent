@@ -8,11 +8,11 @@ using System.Xml.Linq;
 
 namespace RoomRent
 {
-    class XMLFileOperator{
+    public partial class XMLFileOperator{
 
         private string pathToXml;
-		private long lastId;
-  
+
+		public static long lastId;
 
         public XMLFileOperator(string pathToXml) {
             this.pathToXml = pathToXml;
@@ -115,8 +115,10 @@ namespace RoomRent
             document.Save(pathToXml);
         }
 
+	}
 
 
+	public partial class XMLFileOperator {
 		public int getViewsCountForFlatId(long flatId)
 		{
 			List<Flat> list = new List<Flat>();
@@ -133,14 +135,13 @@ namespace RoomRent
 					return count;
 				}
 			}
-			return -1;
+			return 0;
 		}
 
 		public void updateViewsCountForFlatId(long flatId)
 		{
 			XmlDocument document = new XmlDocument();
             document.Load("counter.xml");
-
 			XElement root = XElement.Load("counter.xml");
 			IEnumerable<XElement> flats =
 			from el in root.Elements("flat")
@@ -158,4 +159,27 @@ namespace RoomRent
 			}
 		}
     }
+
+	public static class XMLParserCategory
+	{
+		public static void fillCounter(this XMLFileOperator db)
+		{
+			XmlDocument document = new XmlDocument();
+			document.Load("counter.xml");
+
+			XmlNodeList list = document.GetElementsByTagName("flats");
+			XmlNode flat = list.Item(0);
+
+			XmlNode flatCount = document.CreateElement("flat"); // даём имя
+			flatCount.InnerText = "0";
+			
+
+			XmlAttribute attribute = document.CreateAttribute("id"); // создаём атрибут
+			attribute.Value = "" + XMLFileOperator.lastId;
+			flatCount.Attributes.Append(attribute); // добавляем атрибут
+			flat.AppendChild(flatCount); // и указываем кому принадлежит
+			document.Save("counter.xml");
+			
+		}
+	}
 }
