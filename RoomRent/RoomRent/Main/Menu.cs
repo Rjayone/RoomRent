@@ -114,7 +114,7 @@ namespace RoomRent.MenuImplementation
 			short regionIndex = 0;
 			if (Int16.TryParse(selectedRegionIndex, out regionIndex))
 			{
-				if (regionIndex - 1 > regions.Count)
+				if (regionIndex > regions.Count)
 				{
 					return "0";
 				}
