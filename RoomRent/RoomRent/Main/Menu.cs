@@ -9,7 +9,7 @@ using RoomRent.Filter;
 
 namespace RoomRent.MenuImplementation
 {
-	class Menu
+	public class Menu
 	{
 		private XMLFileOperator dataSource;
 		private List<Flat> flats;
@@ -137,12 +137,12 @@ namespace RoomRent.MenuImplementation
 		}
 
 
-		public void presentAddFlatPage()
-		{
-			RoomsManager manager = new RoomsManager();
-			manager.addRoom();
-			Console.WriteLine("Your room was successfully added");
-		}
+		//public void presentAddFlatPage()
+		//{
+		//	RoomsManager manager = new RoomsManager();
+		//	manager.addRoom();
+		//	Console.WriteLine("Your room was successfully added");
+		//}
 
 		public void presentFilters()
 		{
@@ -203,6 +203,16 @@ namespace RoomRent.MenuImplementation
 			{
 				Console.WriteLine("Incorrect index");
 			}
+		}
+	}
+
+	public static class MenuExtension
+	{
+		public static void presentAddFlatPage(this Menu menu)
+		{
+			RoomsManager manager = new RoomsManager();
+			manager.addRoom();
+			Console.WriteLine("Your room was successfully added");
 		}
 	}
 }
